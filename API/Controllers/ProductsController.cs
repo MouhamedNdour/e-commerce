@@ -1,8 +1,5 @@
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Infrastructure.Data;
 using Core.Entities;
+using Infrastructure.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -13,6 +10,7 @@ namespace API.Controllers
     public class ProductsController : ControllerBase
     {
         private readonly StoreContext _context;
+         
         public ProductsController(StoreContext context)
         {
             _context = context;
