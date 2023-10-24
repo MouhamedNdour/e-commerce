@@ -1,6 +1,5 @@
 using Core.Interfaces;
 using Infrastructure.Data;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 
@@ -27,6 +26,8 @@ namespace API
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "API", Version = "v1" });
             });
             services.AddScoped<IProductRepository, ProductRepository>();
+            services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
             // Create a scope within ConfigureServices
             using (var scope = services.BuildServiceProvider().CreateScope())
@@ -61,6 +62,8 @@ namespace API
             }
 
             app.UseHttpsRedirection();
+
+            app.UseStaticFiles();
 
             app.UseRouting();
 
