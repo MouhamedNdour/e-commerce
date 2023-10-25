@@ -26,11 +26,17 @@
   <ItemGroup>
     <None Remove="Dtos\" />
     <None Remove="Helper\" />
+    <None Remove="Errors\" />
+    <None Remove="Middleware\" />
+    <None Remove="Extensions\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Dtos\" />
     <Folder Include="Helper\" />
     <Folder Include="wwwroot\" />
+    <Folder Include="Errors\" />
+    <Folder Include="Middleware\" />
+    <Folder Include="Extensions\" />
   </ItemGroup>
   <ItemGroup>
     <Content Remove="wwwroot\" />

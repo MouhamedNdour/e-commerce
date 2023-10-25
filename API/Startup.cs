@@ -1,5 +1,9 @@
+using API.Errors;
+using API.Extensions;
+using API.Middleware;
 using Core.Interfaces;
 using Infrastructure.Data;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 
@@ -19,15 +23,7 @@ namespace API
         {
 
             services.AddControllers();
-            services.AddDbContext<StoreContext>(x => 
-                x.UseSqlite(_config.GetConnectionString("DefaultConnection")));
-            services.AddSwaggerGen(c =>
-            {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "API", Version = "v1" });
-            });
-            services.AddScoped<IProductRepository, ProductRepository>();
-            services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
-            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+            services.AddApplicationServices(_config);
 
             // Create a scope within ConfigureServices
             using (var scope = services.BuildServiceProvider().CreateScope())
@@ -54,6 +50,10 @@ namespace API
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            app.UseMiddleware<ExceptionMiddleware>();
+
+            app.UseStatusCodePagesWithReExecute("/errors/{0}");
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
