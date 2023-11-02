@@ -29,26 +29,11 @@
   </section>
   <section class="col-9">
     <div class="d-flex justify-content-between align-items-center pb-2">
-      <header>
-        <span *ngIf="totalCount > 0"> Showing 
-          <strong>{{(shopParams.pageNumber - 1)*shopParams.pageSize + 1}} - 
-            {{shopParams.pageNumber*shopParams.pageSize 
-              > totalCount 
-              ? totalCount
-              : shopParams.pageNumber*shopParams.pageSize}}
-          </strong> 
-          of  
-          <strong>
-            {{totalCount}}
-          </strong>
-          Results
-        </span>
-        <span *ngIf="totalCount === 0">There are <strong>0</strong> results for this filter</span>
-      </header>
+      <app-paging-header [pageNumber]="shopParams.pageNumber" [pageSize]="shopParams.pageSize" [totalCount]="totalCount"></app-paging-header>
       <div class="d-flex mt-2"> 
-        <input type="text" class="form-control me-2" placeholder="Search">
-        <button class="btn btn-outline-primary mx-2" type="submit">Search</button>
-        <button class="btn btn-outline-success mx-2" type="submit">Reset</button>
+        <input (keyup.enter)="onSearch()" type="text" class="form-control me-2" placeholder="Search" #search>
+        <button class="btn btn-outline-primary mx-2" type="submit" (click)="onSearch()">Search</button>
+        <button class="btn btn-outline-success mx-2" type="submit" (click)="onReset()">Reset</button>
       </div>
     </div>
     <div class="row row-cols-3 g-3 mb-4">
@@ -56,19 +41,12 @@
         <app-product-item [product]="product"></app-product-item>
       </div>
     </div>
-
     <div class="d-flex justify-content-center" *ngIf="totalCount > 0">
-      <pagination 
-      [boundaryLinks]="true" 
-      [totalItems]="totalCount" 
-      [itemsPerPage]="shopParams.pageSize" 
-      [maxSize]="10"
+      <app-pager
+      [pageSize]="shopParams.pageSize"
+      [totalCount]="totalCount"
       (pageChanged)="onPageChanged($event)"
-      reviousText="&lsaquo;"
-      nextText="&rsaquo;"
-      firstText="&laquo;"
-      lastText="&raquo;">
-      </pagination>
+      ></app-pager>
     </div>
   </section>
 </div> 
