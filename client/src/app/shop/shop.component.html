@@ -1,5 +1,5 @@
 <div class="container">
-  <div class="row">
+  <div class="row" *ngIf="types.length > 0 && brands.length > 0">
   <section class="col-3">
     <h5 class="text-warning ms-3">Sort</h5>
     <select class="form-select mb-4" (change)="onSortSelected($event)">
@@ -10,7 +10,7 @@
 
     <h5 class="text-warning ms-3">Brands</h5>
       <ul class="list-group my-3">
-        <li class="list-group-item" *ngFor="let brand of brands"
+        <li class="list-group-item" style="cursor: pointer;" *ngFor="let brand of brands"
         [class.active]="brand.id === shopParams.brandId"
         [value]="brand.id"
         (click)="onBrandSelected(brand.id)"
@@ -19,7 +19,7 @@
 
       <h5 class="text-warning ms-3">Types</h5>
       <ul class="list-group my-3">
-        <li class="list-group-item " *ngFor="let type of types"
+        <li class="list-group-item "  style="cursor: pointer;" *ngFor="let type of types"
         [class.active]="type.id === shopParams.typeId"
         [value]="type.id"
         (click)="onTypeSelected(type.id)"
