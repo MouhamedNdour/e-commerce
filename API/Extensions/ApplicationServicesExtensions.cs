@@ -5,6 +5,7 @@ using Infrastructure.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
+using StackExchange.Redis;
 
 namespace API.Extensions
 {
@@ -14,6 +15,12 @@ namespace API.Extensions
 		{
             services.AddDbContext<StoreContext>(x =>
                x.UseSqlite(config.GetConnectionString("DefaultConnection")));
+            services.AddSingleton<IConnectionMultiplexer>( opt =>
+            {
+                var options = ConfigurationOptions.Parse(config.GetConnectionString("Redis"));
+                return ConnectionMultiplexer.Connect(options);
+            });
+            services.AddScoped<IBasketRepository, BasketRepository>();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "API", Version = "v1" });
