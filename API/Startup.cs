@@ -1,8 +1,11 @@
 using API.Errors;
 using API.Extensions;
 using API.Middleware;
+using Core.Entities.Identity;
 using Core.Interfaces;
 using Infrastructure.Data;
+using Infrastructure.Identity;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
@@ -24,18 +27,23 @@ namespace API
 
             services.AddControllers();
             services.AddApplicationServices(_config);
+            services.AddIdentityServices(_config);
 
             // Create a scope within ConfigureServices
             using (var scope = services.BuildServiceProvider().CreateScope())
             {
                 var serviceProvider = scope.ServiceProvider;
                 var context = serviceProvider.GetRequiredService<StoreContext>();
+                var identityContext = serviceProvider.GetRequiredService<AppIdentityDbContext>();
+                var userManager = serviceProvider.GetRequiredService<UserManager<AppUser>>();
                 var logger = serviceProvider.GetRequiredService<ILogger<Startup>>();
 
                 try
                 {
                     context.Database.Migrate();
+                    await identityContext.Database.MigrateAsync();
                     await StoreContextSeed.SeedAsync(context);
+                    await AppIdentityDbContextSeed.SeedUserAsync(userManager);
            
                 }
                 catch (Exception ex)

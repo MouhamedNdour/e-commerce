@@ -10,10 +10,15 @@
     <None Remove="Entities\" />
     <None Remove="Interfaces\" />
     <None Remove="Specifications\" />
+    <None Remove="Entities\Identity\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Entities\" />
     <Folder Include="Interfaces\" />
     <Folder Include="Specifications\" />
+    <Folder Include="Entities\Identity\" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="7.0.0" />
   </ItemGroup>
 </Project>

@@ -1,6 +1,8 @@
 ﻿using System;
 using API.Errors;
 using Infrastructure.Data;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
@@ -13,6 +15,14 @@ namespace API.Controllers
         {
             _context = context;
         }
+
+        [HttpGet("testauth")]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        public ActionResult<string> GetSecretText()
+        {
+            return "secret stuff";
+        }
+
 
         [HttpGet("notfound")]
         public ActionResult GetNotFoundRequest()
