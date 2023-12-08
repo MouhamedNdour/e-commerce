@@ -106,10 +106,15 @@ namespace API.Controllers
                 DisplayName = user.DisplayName
             };
         }
-
+        
         [HttpPost("register")]
         public async Task<ActionResult<UserDto>> Register(RegisterDto registerDto)
         {
+
+            //check if emal already exist
+            if (await CheckEmailExistsAsync(registerDto.Email))
+                return new BadRequestObjectResult( new ApiValidationErrorReponse { Errors = new[] { "Email address is in use" }});
+      
             var user = new AppUser
             {
                 DisplayName = registerDto.DisplayName,

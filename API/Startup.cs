@@ -28,6 +28,7 @@ namespace API
             services.AddControllers();
             services.AddApplicationServices(_config);
             services.AddIdentityServices(_config);
+            services.AddSwaggerDocumentation();
 
             // Create a scope within ConfigureServices
             using (var scope = services.BuildServiceProvider().CreateScope())
@@ -65,8 +66,8 @@ namespace API
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "API v1"));
+                app.UseSwaggerDocumentation();
+                
             }
 
             app.UseHttpsRedirection();
