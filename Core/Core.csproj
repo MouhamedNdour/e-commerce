@@ -11,12 +11,14 @@
     <None Remove="Interfaces\" />
     <None Remove="Specifications\" />
     <None Remove="Entities\Identity\" />
+    <None Remove="Entities\OrderAggregate\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Entities\" />
     <Folder Include="Interfaces\" />
     <Folder Include="Specifications\" />
     <Folder Include="Entities\Identity\" />
+    <Folder Include="Entities\OrderAggregate\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="7.0.0" />
