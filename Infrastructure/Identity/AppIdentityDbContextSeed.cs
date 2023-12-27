@@ -22,7 +22,7 @@ namespace Infrastructure.Identity
 						Street = "28 rue paul verlaine",
 						City = "Rouen",
 						State = "France",
-						ZipCode = "76800"
+						Zipcode = "76800"
 					}
 				};
 

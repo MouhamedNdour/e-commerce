@@ -19,7 +19,7 @@ export class BasketComponent {
     this.basketService.addItemToBasket(item);
   }
 
-  removeItem(id: number, quantity: number): void {
-    this.basketService.removeItemFormBasket(id, quantity);
+  removeItem(event: {id: number, quantity: number}): void {
+    this.basketService.removeItemFormBasket(event.id, event.quantity);
   }
 }
