@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { tick } from '@angular/core/testing';
+import { IOrder } from 'src/app/shared/models/order';
 import { ActivatedRoute } from '@angular/router';
-import { Order } from 'src/app/shared/models/order';
 import { BreadcrumbService } from 'xng-breadcrumb';
 import { OrdersService } from '../orders.service';
 
@@ -11,22 +10,27 @@ import { OrdersService } from '../orders.service';
   styleUrls: ['./order-detailed.component.scss']
 })
 export class OrderDetailedComponent implements OnInit {
+  order?: IOrder;
 
-  order?: Order;
-
-  constructor(private orderService: OrdersService, private route: ActivatedRoute, private bcService: BreadcrumbService){
-    this.bcService.set('@OrderDetailed', '');
+  constructor(private route: ActivatedRoute, private breadcrumbService: BreadcrumbService, private ordersService: OrdersService) {
+    this.breadcrumbService.set('@OrderDetailed', '');
   }
 
-  ngOnInit(): void {
+  ngOnInit() {
     const id = this.route.snapshot.paramMap.get('id');
-    id && this.orderService.getOrderDetailed(+id).subscribe({
-      next: order => {
-        console.log(order);
-        this.order = order;
-        this.bcService.set('@OrderDetailed', `Order# ${order.id} - ${order.status}`);
-      }
-    });
+  
+    if (id !== null && id !== undefined) {
+      this.ordersService.getOrderDetailed(+id)
+        .subscribe((order: IOrder) => {
+          this.order = order;
+          console.log(order);
+          this.breadcrumbService.set('@OrderDetailed', `Order# ${order.id} - ${order.status}`);
+        }, error => {
+          console.log(error);
+        });
+    } else {
+      console.log('ID is null or undefined');
+    }
   }
-
+  
 }

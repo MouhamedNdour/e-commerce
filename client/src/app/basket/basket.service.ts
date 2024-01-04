@@ -4,7 +4,7 @@ import { BehaviorSubject } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Basket, BasketTotals } from '../shared/models/basket';
 import { BasketItem } from '../shared/models/BasketItem';
-import { DeliveryMethod } from '../shared/models/deliveryMethod';
+import { IDeliveryMethod } from '../shared/models/deliveryMethod';
 import { Product } from '../shared/models/Product';
 
 @Injectable({
@@ -20,7 +20,7 @@ export class BasketService {
 
   constructor(private http: HttpClient) { }
 
-  setShippingPrice(deliveryMethod: DeliveryMethod){
+  setShippingPrice(deliveryMethod: IDeliveryMethod){
     this.shipping = deliveryMethod.price;
     this.calculateTotals();
   }
