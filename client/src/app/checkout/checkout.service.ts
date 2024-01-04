@@ -23,6 +23,6 @@ export class CheckoutService {
   }
 
   createOrder(order: OrderToCreate) {
-     return this.http.post<Order>(this.baseUrl + '/order', order);
+     return this.http.post<Order>(this.baseUrl + '/orders', order);
   }
 }
