@@ -27,6 +27,7 @@ namespace API.Extensions
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "API", Version = "v1" });
             });
             services.AddScoped<IProductRepository, ProductRepository>();
+            services.AddScoped<IPaymentService, PaymentService>();
             services.AddScoped<ITokenService, TokenService>();
             services.AddScoped<IOrderService, OrderService>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();

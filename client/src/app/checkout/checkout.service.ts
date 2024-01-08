@@ -23,6 +23,6 @@ export class CheckoutService {
   }
 
   createOrder(order: IOrderToCreate) {
-     return this.http.post<IOrder>(this.baseUrl + '/orders', order);
+     return this.http.post<IOrder>(this.baseUrl + '/order', order);
   }
 }
